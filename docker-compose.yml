@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  kazi:
+    image: kazi
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
+      - DEBUG=${DEBUG:-false}
+    ports:
+      - "${PORT:-3000}:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: ${COMMAND:-npm start}
+
+# Development overrides can be added in docker-compose.override.yml:
+# version: '3.4'
+# services:
+#   kazi:
+#     environment:
+#       - NODE_ENV=development
+#       - DEBUG=true
+#     command: npm run dev
